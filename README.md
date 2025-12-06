@@ -1,8 +1,8 @@
-#a. Project Title $ Description
+# a. Project Title $ Description
 Title: EXPENSEO
 Description: This application is a personal finance tracking dashboard designed for students or individuals who want to manage their monthly expenses in a simple, interactive, and modern interface. The system is called Expenseo, and it includes a fully functional sidebar navigation, summary analytics, transaction management, and filtering tools.
 
-#b. Features included
+# b. Features included
 1.  User Interface & Side Bar Navigation
 2. Dark Mode System
 3. Dashboard Features
@@ -12,11 +12,11 @@ Description: This application is a personal finance tracking dashboard designed 
 7. Expenses Page
 8. Profile Page
 
-#c. Instructions to test login
+# c. Instructions to test login
 Username: Sakinah25
 Password: Nursakinah25!
 
-#d. Frameworks/libraries used. 
+# d. Frameworks/libraries used. 
 Frameworks: Bootstrap
 Libraries:
 1. Chart.js
