@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expenseo —Expenses</title>
+
+  <!-- Google Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Material+Symbols+Rounded" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- GLOBAL STYLE.CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+<!--SIDEBAR-->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="brand">
+      <img src="logo.png" alt="Expenseo">
+    </div>
+
+    <button class="sidebar-toggler">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+
+      <!-- PRIMARY NAV -->
+      <ul class="nav-list primary-nav">
+          <li class="nav-item">
+              <a href="dashboard.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">dashboard</span>
+                  <span class="nav-label">Dashboard</span>
+              </a>
+              <span class="nav-tooltip">Dashboard</span>
+          </li>
+
+          <li class="nav-item">
+              <a href="transaction.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">paid</span>
+                  <span class="nav-label">Transactions</span>
+              </a>
+              <span class="nav-tooltip">Transactions</span>
+          </li>
+
+          <li class="nav-item">
+              <a href="bills.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">receipt_long</span>
+                  <span class="nav-label">Bills</span>
+              </a>
+              <span class="nav-tooltip">Bills</span>
+          </li>
+
+          <li class="nav-item">
+              <a href="savings.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">savings</span>
+                  <span class="nav-label">Savings</span>
+              </a>
+              <span class="nav-tooltip">Savings</span>
+          </li>
+
+          <li class="nav-item active">
+              <a href="expenses.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">trending_down</span>
+                  <span class="nav-label">Expenses</span>
+              </a>
+              <span class="nav-tooltip">Expenses</span>
+          </li>
+
+      </ul>
+
+      <!-- SECONDARY NAV -->
+      <ul class="nav-list secondary-nav">
+
+          <li class="nav-item">
+              <a href="profile.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">account_circle</span>
+                  <span class="nav-label">Profile</span>
+              </a>
+              <span class="nav-tooltip">Profile</span>
+          </li>
+
+          <li class="nav-item">
+              <a href="logout.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">logout</span>
+                  <span class="nav-label">Logout</span>
+              </a>
+              <span class="nav-tooltip">Logout</span>
+          </li>
+
+      </ul>
+
+  </nav>
+</aside>
+
+<main class="content-wrapper">
+
+    <!-- Dark mode toggle -->
+    <div class="top-controls">
+        <div class="theme-icons">
+            <span class="light-icon"><i class="bi bi-sun-fill"></i></span>
+            <span class="dark-icon"><i class="bi bi-moon-stars-fill"></i></span>
+        </div>
+        <input type="checkbox" id="darkmode-toggle" />
+        <label for="darkmode-toggle" class="darkmode-label">
+            <svg class="sun"></svg>
+            <svg class="moon"></svg>
+            <span class="toggle-ball"></span>
+        </label>
+    </div>
+
+    <div class="expenses-header">
+
+    <h1 class="expenses-title">Expenses</h1>
+
+    <div class="right-controls">
+        <select id="timePeriod" class="form-select time-dropdown">
+            <option value="weekly" selected>Weekly</option>
+            <option value="monthly">Monthly</option>
+        </select>
+    </div>
+
+</div>
+
+<!-- Top 4 Cards -->
+<div class="row mb-4 g-4">
+    <div class="col-md-3">
+        <div class="cat-card">
+            <div class="expense-icon">🍕</div>
+            Food<br>
+            <p id="foodAmount" class="m-0" style="font-size:1.2rem;">RM170</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="cat-card">
+            <div class="expense-icon">🛍️</div>
+            Shopping<br>
+            <p id="shoppingAmount" class="m-0" style="font-size:1.2rem;">RM250</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="cat-card">
+            <div class="expense-icon">🎬</div>
+            Entertainment<br>
+            <p id="entertainmentAmount" class="m-0" style="font-size:1.2rem;">RM320</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="cat-card">
+            <div class="expense-icon">🚗</div>
+            Car<br>
+            <p id="carAmount" class="m-0" style="font-size:1.2rem;">RM190</p>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Section -->
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="chart-card">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-6 d-flex flex-column">
+        <div class="total-box" id="totalSpent">
+            Amount Spent: RM930
+        </div>
+        <div class="chart-card flex-grow-1">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+<footer class="app-footer">
+    <div class="footer-left">
+        © 2025 Expenseo — All Rights Reserved
+    </div>
+</footer>
+</main>
+
+<script>
+// Category data for each period
+const categoryData = {
+    weekly: { food: 170, shopping: 250, entertainment: 320, car: 190 },
+    monthly: { food: 700, shopping: 1000, entertainment: 1200, car: 800 },
+    yearly: { food: 8400, shopping: 12000, entertainment: 14400, car: 9600 }
+};
+
+// Bar chart data for each period
+const barData = {
+    weekly: [120, 180, 150, 200],
+    monthly: [500, 600, 550, 700],
+    yearly: [6000, 7200, 6800, 7500]
+};
+
+// Bar chart labels for each period
+const barLabels = {
+    weekly: ["Week 1", "Week 2", "Week 3", "Week 4"],
+    monthly: ["Jan", "Feb", "Mar", "Apr"],
+    yearly: ["2022", "2023", "2024", "2025"]
+};
+
+// Pie Chart
+const pieChart = new Chart(document.getElementById("pieChart"), {
+    type: "pie",
+    data: {
+        labels: ["Food", "Shopping", "Entertainment", "Car"],
+        datasets: [{
+            data: Object.values(categoryData.weekly),
+            backgroundColor: ["#ff6384","#36a2eb","#ffcd56","#4bc0c0"]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 14 } } } },
+        radius: '70%'
+    }
+});
+
+// Bar Chart
+const barChart = new Chart(document.getElementById("barChart"), {
+    type: "bar",
+    data: {
+        labels: barLabels.weekly,
+        datasets: [{
+            label: "Spending",
+            data: barData.weekly,
+            backgroundColor: ["#8e44ad","#3498db","#e67e22","#2ecc71"]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true } }
+    }
+});
+
+// Update charts and cards on dropdown change
+document.getElementById("timePeriod").addEventListener("change", function() {
+    const period = this.value;
+
+    // Update bar chart
+    barChart.data.labels = barLabels[period];
+    barChart.data.datasets[0].data = barData[period];
+    barChart.update();
+
+    // Update pie chart
+    const catValues = Object.values(categoryData[period]);
+    pieChart.data.datasets[0].data = catValues;
+    pieChart.update();
+
+    // Update total spent
+    const total = catValues.reduce((a,b) => a+b, 0);
+    document.getElementById("totalSpent").innerText = `Amount Spent: RM${total}`;
+
+    // Update top 4 cards
+    document.getElementById("foodAmount").innerText = `RM${categoryData[period].food}`;
+    document.getElementById("shoppingAmount").innerText = `RM${categoryData[period].shopping}`;
+    document.getElementById("entertainmentAmount").innerText = `RM${categoryData[period].entertainment}`;
+    document.getElementById("carAmount").innerText = `RM${categoryData[period].car}`;
+});
+
+
+</script>
+</section>
+
+</body>
+</html>

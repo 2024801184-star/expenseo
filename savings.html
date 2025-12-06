@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expenseo — Savings & Goals</title>
+
+  <!-- Google Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Material+Symbols+Rounded" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- GLOBAL STYLE -->
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="brand">
+      <img src="logo.png" alt="Expenseo">
+    </div>
+
+    <button class="sidebar-toggler">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+
+      <!-- PRIMARY NAV -->
+      <ul class="nav-list primary-nav">
+          <li class="nav-item">
+              <a href="dashboard.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">dashboard</span>
+                  <span class="nav-label">Dashboard</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a href="transaction.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">paid</span>
+                  <span class="nav-label">Transactions</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a href="bills.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">receipt_long</span>
+                  <span class="nav-label">Bills</span>
+              </a>
+          </li>
+
+          <li class="nav-item active">
+              <a href="savings.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">savings</span>
+                  <span class="nav-label">Savings</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a href="expenses.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">trending_down</span>
+                  <span class="nav-label">Expenses</span>
+              </a>
+          </li>
+      </ul>
+
+      <!-- SECONDARY NAV -->
+      <ul class="nav-list secondary-nav">
+          <li class="nav-item">
+              <a href="profile.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">account_circle</span>
+                  <span class="nav-label">Profile</span>
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a href="logout.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">logout</span>
+                  <span class="nav-label">Logout</span>
+              </a>
+          </li>
+      </ul>
+
+  </nav>
+</aside>
+
+<div class="top-controls">
+    <div class="theme-icons">
+        <span class="light-icon">
+            <i class="bi bi-sun-fill"></i>
+        </span>
+        <span class="dark-icon">
+            <i class="bi bi-moon-stars-fill"></i>
+        </span>
+    </div>
+    <input type="checkbox" id="darkmode-toggle" />
+    <label for="darkmode-toggle" class="darkmode-label">
+        <svg class="sun"></svg>
+        <svg class="moon"></svg>
+        <span class="toggle-ball"></span>
+    </label>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="content-wrapper">
+    <h1 class="text-center mb-4">Savings & Goals</h1>
+
+    <!-- Top Row -->
+    <div class="savings-card-wrapper mb-4">
+
+        <!-- Goals -->
+        <div class="card p-3">
+            <h5 class="text-center mb-3">Goals</h5>
+
+            <div class="goal-label"><span>MacBook</span><span>RM 4,729</span></div>
+            <div class="progress"><div class="progress-bar bg-primary" style="width:50%">50%</div></div>
+
+            <div class="goal-label"><span>Sony Headphone</span><span>RM 1,499</span></div>
+            <div class="progress"><div class="progress-bar bg-success" style="width:25%">25%</div></div>
+
+            <div class="goal-label"><span>iPad Pro</span><span>RM 4,499</span></div>
+            <div class="progress"><div class="progress-bar bg-warning" style="width:10%">10%</div></div>
+
+            <div class="goal-label"><span>House</span><span>RM 130,000</span></div>
+            <div class="progress"><div class="progress-bar bg-danger" style="width:5%">5%</div></div>
+        </div>
+
+        <!-- Savings Chart -->
+        <div class="card p-3">
+            <div class="savings-card">
+                <div class="savings-text">
+                    <h5>Savings</h5>
+                    <ul>
+                        <li>Emergency</li>
+                        <li>Travel</li>
+                        <li>Study</li>
+                        <li>House</li>
+                    </ul>
+                </div>
+
+                <div class="savings-chart">
+                    <canvas id="savingsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Mini Charts Row -->
+    <div class="row g-3 bottom-cards">
+
+        <!-- MacBook -->
+        <div class="col-md-3 col-6">
+            <div class="card p-3 text-center">
+                <canvas id="tracker1" class="mini-chart"></canvas>
+                <p class="chart-title">MacBook</p>
+                <p class="chart-subtitle">Progress</p>
+                <div class="card-info" id="info-tracker1"></div>
+            </div>
+        </div>
+
+        <!-- Sony Headphone -->
+        <div class="col-md-3 col-6">
+            <div class="card p-3 text-center">
+                <canvas id="tracker2" class="mini-chart"></canvas>
+                <p class="chart-title">Sony Headphone</p>
+                <p class="chart-subtitle">Progress</p>
+                <div class="card-info" id="info-tracker2"></div>
+            </div>
+        </div>
+
+        <!-- iPad -->
+        <div class="col-md-3 col-6">
+            <div class="card p-3 text-center">
+                <canvas id="tracker3" class="mini-chart"></canvas>
+                <p class="chart-title">iPad Pro</p>
+                <p class="chart-subtitle">Progress</p>
+                <div class="card-info" id="info-tracker3"></div>
+            </div>
+        </div>
+
+        <!-- House -->
+        <div class="col-md-3 col-6">
+            <div class="card p-3 text-center">
+                <canvas id="tracker4" class="mini-chart"></canvas>
+                <p class="chart-title">House</p>
+                <p class="chart-subtitle">Progress</p>
+                <div class="card-info" id="info-tracker4"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+function formatNumber(num) {
+    return num.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Savings Line Chart
+new Chart(document.getElementById("savingsChart"), {
+    type: "line",
+    data: {
+        labels: ["Emergency", "Travel", "Study", "House"],
+        datasets: [{
+            label: "RM Saved",
+            data: [2364.50, 374.75, 449.90, 6500.00],
+            borderColor: "#4e73df",
+            backgroundColor: "rgba(78,115,223,0.2)",
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+
+// Mini Compares
+const trackerData = [
+    { saved: 2364.50, total: 4729 },
+    { saved: 374.75, total: 1499 },
+    { saved: 449.90, total: 4499 },
+    { saved: 6500.00, total: 130000 }
+];
+
+const trackerColors = ["#4e73df","#1cc88a","#f6c23e","#e74a3b"];
+const ids = ["tracker1","tracker2","tracker3","tracker4"];
+const infoIds = ["info-tracker1","info-tracker2","info-tracker3","info-tracker4"];
+
+ids.forEach((id, i) => {
+    const ctx = document.getElementById(id);
+
+    new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Saved", "Remaining"],
+            datasets: [{
+                data: [trackerData[i].saved, trackerData[i].total - trackerData[i].saved],
+                backgroundColor: [trackerColors[i], "#e0e0e0"]
+            }]
+        },
+        options: {
+            cutout: "70%",
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    // Insert info blocks
+    const balance = trackerData[i].total - trackerData[i].saved;
+
+    document.getElementById(infoIds[i]).innerHTML = `
+        <div class="info-block">
+            <p class="info-header">Saved so far</p>
+            <p class="info-subheader">RM${formatNumber(trackerData[i].saved)}</p>
+        </div>
+        <div class="info-block">
+            <p class="info-header">Of Total</p>
+            <p class="info-subheader">RM${formatNumber(trackerData[i].total)}</p>
+        </div>
+        <div class="info-block">
+            <p class="info-header">Balance</p>
+            <p class="info-subheader">RM${formatNumber(balance)}</p>
+        </div>
+    `;
+});
+</script>
+
+<script src="script.js"></script>
+<footer class="app-footer">
+    <div class="footer-left">
+        © 2025 Expenseo — All Rights Reserved
+    </div>
+
+</footer>
+</body>
+</html>

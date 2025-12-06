@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expenseo — Profile</title>
+
+  <!-- Google Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Material+Symbols+Rounded" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- GLOBAL STYLE -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+      body {
+          background: linear-gradient(180deg, #eaf6ff 0%, #f6fbff 100%);
+      }
+
+      /* CONTENT WRAPPER */
+      .content-wrapper {
+          margin-left: 250px;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          padding: 30px;
+          transition: margin-left .3s ease;
+      }
+
+      .sidebar.collapsed ~ .content-wrapper {
+          margin-left: 90px;
+      }
+
+      /* PAGE TITLE */
+      .page-title {
+          font-size: 32px;
+          font-weight: 700;
+          text-align: center;
+          color: #0d2a6b;
+          margin-bottom: 30px;
+      }
+
+      /* PROFILE CONTAINER */
+      .profile-container {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 50px;
+          flex-wrap: wrap;
+          padding-bottom: 40px;
+      }
+
+      /* LEFT CARD */
+      .profile-box {
+          width: 280px;
+          padding: 25px;
+          background: #ffffff;
+          border-radius: 16px;
+          box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+          text-align: center;
+      }
+
+      .profile-pic img {
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-bottom: 15px;
+      }
+
+      /* RIGHT CARD (WIDER) */
+      .edit-box {
+          width: 700px;
+          max-width: 100%;
+          background: #ffffff;
+          padding: 25px 30px;
+          border-radius: 16px;
+          box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+      }
+
+      /* FOOTER */
+      .app-footer {
+          margin-top: 40px;
+          padding: 18px 30px;
+          background: var(--card-bg);
+          color: var(--text-color);
+          border-radius: 12px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+          text-align: center;
+      }
+
+      /* DARK MODE */
+      body.dark {
+          background: #0d1117 !important;
+          color: #e5e7eb;
+      }
+
+      body.dark .profile-box,
+      body.dark .edit-box,
+      body.dark .app-footer {
+          background: #161b22 !important;
+          color: #e5e7eb !important;
+          box-shadow: none;
+      }
+  </style>
+</head>
+
+<body class="profile-page">
+
+<!-- SIDEBAR -->
+<aside class="sidebar collapsed">
+  <div class="sidebar-header">
+    <div class="brand">
+      <img src="logo.png" alt="Expenseo">
+    </div>
+
+    <button class="sidebar-toggler">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+
+      <ul class="nav-list primary-nav">
+          <li class="nav-item"><a href="dashboard.html" class="nav-link"><span class="nav-icon material-symbols-rounded">dashboard</span><span class="nav-label">Dashboard</span></a></li>
+          <li class="nav-item"><a href="transaction.html" class="nav-link"><span class="nav-icon material-symbols-rounded">paid</span><span class="nav-label">Transactions</span></a></li>
+          <li class="nav-item"><a href="bills.html" class="nav-link"><span class="nav-icon material-symbols-rounded">receipt_long</span><span class="nav-label">Bills</span></a></li>
+          <li class="nav-item"><a href="savings.html" class="nav-link"><span class="nav-icon material-symbols-rounded">savings</span><span class="nav-label">Savings</span></a></li>
+          <li class="nav-item"><a href="expenses.html" class="nav-link"><span class="nav-icon material-symbols-rounded">trending_down</span><span class="nav-label">Expenses</span></a></li>
+      </ul>
+
+      <ul class="nav-list secondary-nav">
+          <li class="nav-item active"><a href="profile.html" class="nav-link"><span class="nav-icon material-symbols-rounded">account_circle</span><span class="nav-label">Profile</span></a></li>
+          <li class="nav-item"><a href="logout.html" class="nav-link"><span class="nav-icon material-symbols-rounded">logout</span><span class="nav-label">Logout</span></a></li>
+      </ul>
+
+  </nav>
+</aside>
+
+<!-- TOP CONTROLS -->
+<div class="top-controls">
+    <div class="theme-icons">
+        <span class="light-icon"><i class="bi bi-sun-fill"></i></span>
+        <span class="dark-icon"><i class="bi bi-moon-stars-fill"></i></span>
+    </div>
+
+    <input type="checkbox" id="darkmode-toggle" />
+    <label for="darkmode-toggle" class="darkmode-label">
+        <svg class="sun"></svg>
+        <svg class="moon"></svg>
+        <span class="toggle-ball"></span>
+    </label>
+</div>
+
+<!-- CONTENT WRAPPER -->
+<div class="content-wrapper">
+
+    <h1 class="page-title">My Profile</h1>
+
+    <div class="profile-container">
+
+        <!-- LEFT CARD -->
+        <div class="profile-box">
+            <div class="profile-pic">
+                <img src="profile.png" alt="Profile Picture">
+            </div>
+            <h3 id="profileName">Ahamd Iqbal</h3>
+            <p id="profileEmail">iqbal@example.com</p>
+        </div>
+
+        <!-- RIGHT CARD -->
+        <div class="edit-box">
+
+            <h4>Edit Profile</h4>
+
+            <form id="profileForm">
+
+        <!-- USERNAME -->
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" id="usernameInput" value="iqbal@123">
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="mb-3">
+            <label class="form-label">Change Password</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="Enter new password">
+        </div>
+
+        <!-- GENDER -->
+        <div class="mb-3">
+            <label class="form-label">Gender</label>
+            <select class="form-control" id="genderInput">
+                <option value="" disabled selected>Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <!-- DATE OF BIRTH -->
+        <div class="mb-3">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="dobInput">
+        </div>
+
+        <!-- PHONE NO -->
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phoneInput" placeholder="example: 012-3456789">
+        </div>
+
+        <!-- EMAIL -->
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="emailInput" value="iqbal@example.com">
+        </div>
+
+        <!-- SAVE BUTTON -->
+        <button class="btn btn-primary w-100" type="button" id="saveBtn">
+            Save Changes
+        </button>
+
+        <p id="saveMessage" class="text-success mt-3" style="display:none;">Changes saved successfully!</p>
+    </form>
+
+
+            
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        © 2025 Expenseo — All Rights Reserved
+    </footer>
+
+</div>
+
+<!-- SAVE PROFILE -->
+<script>
+document.getElementById("saveBtn").addEventListener("click", () => {
+
+    // Update username on left card
+    document.getElementById("profileName").innerText =
+        document.getElementById("usernameInput").value;
+
+    // Update email on left card
+    document.getElementById("profileEmail").innerText =
+        document.getElementById("emailInput").value;
+
+    // Show success message
+    document.getElementById("saveMessage").style.display = "block";
+});
+</script>
+
+
+<!-- SIDEBAR HOVER -->
+<script>
+const sidebar = document.querySelector(".sidebar");
+const wrapper = document.querySelector(".content-wrapper");
+
+sidebar.addEventListener("mouseenter", () => {
+    sidebar.classList.remove("collapsed");
+    wrapper.style.marginLeft = "250px";
+});
+
+sidebar.addEventListener("mouseleave", () => {
+    sidebar.classList.add("collapsed");
+    wrapper.style.marginLeft = "90px";
+});
+</script>
+
+<!-- DARK MODE -->
+<script>
+if (localStorage.getItem("darkmode") === "enabled") {
+    document.body.classList.add("dark");
+    document.getElementById("darkmode-toggle").checked = true;
+}
+
+document.getElementById("darkmode-toggle").addEventListener("change", function () {
+    if (this.checked) {
+        document.body.classList.add("dark");
+        localStorage.setItem("darkmode", "enabled");
+    } else {
+        document.body.classList.remove("dark");
+        localStorage.setItem("darkmode", "disabled");
+    }
+});
+</script>
+
+</body>
+</html>

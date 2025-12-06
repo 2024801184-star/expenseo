@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Expenseo — Dashboard</title>
+
+  <!-- Google Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Material+Symbols+Rounded"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+
+<!--SIDEBAR-->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="brand">
+      <img src="logo.png" alt="Expenseo">
+    </div>
+
+    <button class="sidebar-toggler">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+  </div>
+        <nav class="sidebar-nav">
+
+            <ul class="nav-list primary-nav">
+
+                <li class="nav-item active">
+                    <a href="dashboard.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">dashboard</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                    <span class="nav-tooltip">Dashboard</span>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="transaction.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">paid</span>
+                        <span class="nav-label">Transactions</span>
+                    </a>
+                    <span class="nav-tooltip">Transactions</span>
+                </li>
+
+                <li class="nav-item">
+                    <a href="bills.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">receipt_long</span>
+                        <span class="nav-label">Bills</span>
+                    </a>
+                    <span class="nav-tooltip">Bills</span>
+                </li>
+
+                <li class="nav-item">
+                    <a href="savings.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">savings</span>
+                        <span class="nav-label">Savings</span>
+                    </a>
+                    <span class="nav-tooltip">Savings</span>
+                </li>
+
+                <li class="nav-item">
+                    <a href="expenses.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">trending_down</span>
+                        <span class="nav-label">Expenses</span>
+                    </a>
+                    <span class="nav-tooltip">Expenses</span>
+                </li>
+
+            </ul>
+
+            <ul class="nav-list secondary-nav">
+
+                <li class="nav-item">
+                    <a href="profile.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">account_circle</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                    <span class="nav-tooltip">Profile</span>
+                </li>
+
+                <li class="nav-item">
+                    <a href="logout.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">logout</span>
+                        <span class="nav-label">Logout</span>
+                    </a>
+                    <span class="nav-tooltip">Logout</span>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </aside>
+
+<div class="top-controls">
+    <div class="theme-icons">
+        <span class="light-icon">
+            <i class="bi bi-sun-fill"></i>
+        </span>
+        <span class="dark-icon">
+            <i class="bi bi-moon-stars-fill"></i>
+        </span>
+    </div>
+    <input type="checkbox" id="darkmode-toggle" />
+    <label for="darkmode-toggle" class="darkmode-label">
+        <svg class="sun"></svg>
+        <svg class="moon"></svg>
+        <span class="toggle-ball"></span>
+    </label>
+
+</div>
+
+<!-- CONTENT WRAPPER -->
+    <div class="content-wrapper">
+
+        <h1 class="page-title">Dashboard</h1>
+
+  <!-- Summary Cards -->
+  <div class="summary-grid">
+    <div class="card small">
+      <div class="card-head">Total Balance</div>
+      <div class="card-value" id="balanceValue">RM 2,888.00</div>
+    </div>
+
+    <div class="card small">
+      <div class="card-head">Income</div>
+      <div class="card-value" id="incomeValue">RM 5,000.00</div>
+    </div>
+
+    <div class="card small">
+      <div class="card-head">Expenses</div>
+      <div class="card-value" id="expensesValue">RM 1,112.00</div>
+    </div>
+
+    <div class="card small">
+      <div class="card-head">Total Savings</div>
+      <div class="card-value" id="savingsValue">RM 1,000.00</div>
+    </div>
+  </div>
+
+
+  <!-- Charts -->
+  <div class="charts-grid">
+
+    <!-- Donut -->
+    <div class="card chart-card">
+      <h3 class="card-title">Expenses Breakdown</h3>
+
+      <div class="donut-wrap">
+        <canvas id="expenseChart"></canvas>
+        <div class="donut-center" id="donutCenter">RM 550</div>
+      </div>
+
+      <div class="legend" id="donutLegend"></div>
+    </div>
+
+
+    <!-- Line Chart -->
+    <div class="card chart-card wide">
+      <h3 class="card-title">Cash Flow</h3>
+
+      <div class="chart-row">
+        <div class="chart-area">
+          <canvas id="cashFlowChart"></canvas>
+        </div>
+
+        <aside class="summary-box">
+          <h4>Summary</h4>
+          <p><span class="badge pos">↑ Positive</span> Highest income in June (RM 1100).</p>
+          <p><span class="badge neu">• Stable</span> Cash flow stable this month.</p>
+          <p><span class="badge neg">↓ Decrease</span> Spending slightly down vs last month.</p>
+        </aside>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Transactions & Goals -->
+  <div class="bottom-grid">
+    <div class="card">
+      <h3 class="card-title">Recent Transactions</h3>
+      <ul class="tx-list" id="recentTx">
+        <li><span class="tx-name">KFC</span><span class="tx-meta">eWallet • 2025-11-20</span><strong class="tx-amount">- RM 15.90</strong></li>
+        <li><span class="tx-name">Grab</span><span class="tx-meta">Cash • 2025-11-18</span><strong class="tx-amount">- RM 3.00</strong></li>
+        <li><span class="tx-name">MR DIY</span><span class="tx-meta">Debit Card • 2025-11-15</span><strong class="tx-amount">- RM 79.90</strong></li>
+        <li><span class="tx-name">Aeon</span><span class="tx-meta">Cash • 2025-12-02</span><strong class="tx-amount">- RM 65.30</strong></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title">Saving Goals</h3>
+      <div class="goals">
+        <div class="goal">
+          <div class="goal-head">Macbook <span>RM 2365.50 / RM 4729</span></div>
+          <div class="progress"><div style="width:40%"></div></div>
+        </div>
+
+        <div class="goal">
+          <div class="goal-head">Sony Headphone <span>RM 374.75 / RM 1499</span></div>
+          <div class="progress"><div style="width:37%"></div></div>
+        </div>
+
+        <div class="goal">
+          <div class="goal-head">Ipad pro <span>RM 449.90 / RM 4499</span></div>
+          <div class="progress"><div style="width:20%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script src="script.js"></script>
+<footer class="app-footer">
+    <div class="footer-left">
+        © 2025 Expenseo — All Rights Reserved
+    </div>
+</footer>
+</body>
+</html>

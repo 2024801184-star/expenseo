@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Expenseo — Bills</title>
+
+  <!-- Google Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Material+Symbols+Rounded"
+        rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!--SIDEBAR-->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="brand">
+      <img src="logo.png" alt="Expenseo">
+    </div>
+
+    <button class="sidebar-toggler">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+  </div>
+        <nav class="sidebar-nav">
+
+            <ul class="nav-list primary-nav">
+
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">dashboard</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                    <span class="nav-tooltip">Dashboard</span>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="transaction.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">paid</span>
+                        <span class="nav-label">Transactions</span>
+                    </a>
+                    <span class="nav-tooltip">Transactions</span>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="bills.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">receipt_long</span>
+                        <span class="nav-label">Bills</span>
+                    </a>
+                    <span class="nav-tooltip">Bills</span>
+                </li>
+
+                <li class="nav-item">
+                    <a href="savings.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">savings</span>
+                        <span class="nav-label">Savings</span>
+                    </a>
+                    <span class="nav-tooltip">Savings</span>
+                </li>
+
+                <li class="nav-item">
+                    <a href="expenses.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">trending_down</span>
+                        <span class="nav-label">Expenses</span>
+                    </a>
+                    <span class="nav-tooltip">Expenses</span>
+                </li>
+
+            </ul>
+
+            <ul class="nav-list secondary-nav">
+
+                <li class="nav-item">
+                    <a href="profile.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">account_circle</span>
+                        <span class="nav-label">Profile</span>
+                    </a>
+                    <span class="nav-tooltip">Profile</span>
+                </li>
+
+                <li class="nav-item">
+                    <a href="logout.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">logout</span>
+                        <span class="nav-label">Logout</span>
+                    </a>
+                    <span class="nav-tooltip">Logout</span>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </aside>
+
+<div class="top-controls">
+    <div class="theme-icons">
+        <span class="light-icon">
+            <i class="bi bi-sun-fill"></i>
+        </span>
+        <span class="dark-icon">
+            <i class="bi bi-moon-stars-fill"></i>
+        </span>
+    </div>
+    <input type="checkbox" id="darkmode-toggle" />
+    <label for="darkmode-toggle" class="darkmode-label">
+        <svg class="sun"></svg>
+        <svg class="moon"></svg>
+        <span class="toggle-ball"></span>
+    </label>
+
+</div>
+
+    <div class="content-wrapper">
+
+        <h1 class="page-title">Bills</h1>
+
+  <div class="bills-row">
+
+    <!-- UPCOMING BILLS TIMELINE -->
+<div class="card bills-box">
+   <h4 class="section-title">
+    <h4 class="section-title">
+    <i class="bi bi-calendar-check me-2"></i> Upcoming Bills
+</h4>
+
+<ul class="upcoming-list">
+    <li class="upcoming-item">
+        <i class="bi bi-film icon-bill"></i>
+        <div>
+            <strong>15 Dec</strong><br>
+            Netflix — <span>RM 20</span>
+        </div>
+    </li>
+
+    <li class="upcoming-item">
+        <i class="bi bi-droplet icon-bill"></i>
+        <div>
+            <strong>20 Dec</strong><br>
+            Water — <span>RM 30</span>
+        </div>
+    </li>
+
+    <li class="upcoming-item">
+        <i class="bi bi-lightning-charge icon-bill"></i>
+        <div>
+            <strong>01 Jan</strong><br>
+            Electricity — <span>RM 80</span>
+        </div>
+    </li>
+
+    <li class="upcoming-item">
+        <i class="bi bi-house-door icon-bill"></i>
+        <div>
+            <strong>05 Jan</strong><br>
+            Rent — <span>RM 500</span>
+        </div>
+    </li>
+</ul>
+</div>
+
+    <!-- Donut-->
+    <div class="col-lg-6">
+        <section class="bills-box card shadow-sm p-4">
+
+            <h3 class="box-title mb-3">Estimated Bills</h3>
+            <h5 class="mt-2 text-muted">Total: <span id="totalAmount"></span></h5>
+
+            <div class="bills-flex">
+
+                <!-- BILL LIST -->
+                <ul id="billList" class="bill-list flex-grow-1 me-4"></ul>
+
+                <!-- DONUT -->
+                <div class="donut-container">
+                    <canvas id="donutChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+
+    <!--TOTAL PERCENTAGE-->
+<div class="col-lg-6">
+    <section class="bills-box card shadow-sm p-4">
+        <div class="percentage-header">
+            <h3 class="box-title mb-3">Total Percentage</h3>
+            <button id="percentToggle" class="percent-toggle-btn">
+                <span class="material-symbols-rounded">expand_less</span>
+            </button>
+        </div>
+
+        <div id="percentageBars" class="percentage-content"></div>
+    </section>
+</div>
+
+<!-- INSIGHTS-->
+<div class="col-lg-6">
+    <section class="bills-box card shadow-sm p-4 insights-box">
+
+        <div class="insights-section">
+    <h4>Insights</h4>
+    <ul>
+        <li>Rent dominates your bills at 68.5%.</li>
+        <li>Water + Electricity total 15.1%.</li>
+        <li>Entertainment spending remains low.</li>
+    </ul>
+</div>
+       
+        <img src="web.png" alt="Finance Illustration">
+        
+    </section>
+</div>
+
+    <div class="insight-image">
+    </div>
+</div>
+
+  <!-- CASH FLOW -->
+  <section class="cashflow-box card shadow-sm mt-4 p-3">
+  <h3 class="box-title mb-3">Cash Flow</h3>
+
+  <div class="chart-container" style="height: 320px;">
+     <canvas id="cashFlowChart"></canvas>
+  </div>
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+<footer class="app-footer">
+    <div class="footer-left">
+        © 2025 Expenseo — All Rights Reserved
+    </div>
+
+</footer>
+</body>
+</html>

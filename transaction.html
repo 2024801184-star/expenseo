@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expenseo — Transaction</title>
+
+  <!-- Google Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Material+Symbols+Rounded" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="brand">
+      <img src="logo.png" alt="Expenseo">
+    </div>
+
+    <button class="sidebar-toggler">
+      <span class="material-symbols-rounded">chevron_left</span>
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul class="nav-list primary-nav">
+      <li class="nav-item">
+        <a href="dashboard.html" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">dashboard</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <span class="nav-tooltip">Dashboard</span>
+      </li>
+
+      <li class="nav-item active">
+        <a href="transaction.html" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">paid</span>
+          <span class="nav-label">Transactions</span>
+        </a>
+        <span class="nav-tooltip">Transactions</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="bills.html" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">receipt_long</span>
+          <span class="nav-label">Bills</span>
+        </a>
+        <span class="nav-tooltip">Bills</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="savings.html" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">savings</span>
+          <span class="nav-label">Savings</span>
+        </a>
+        <span class="nav-tooltip">Savings</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="expenses.html" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">trending_down</span>
+          <span class="nav-label">Expenses</span>
+        </a>
+        <span class="nav-tooltip">Expenses</span>
+      </li>
+
+    </ul>
+
+    <ul class="nav-list secondary-nav">
+      <li class="nav-item">
+        <a href="profile.html" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">account_circle</span>
+          <span class="nav-label">Profile</span>
+        </a>
+        <span class="nav-tooltip">Profile</span>
+      </li>
+
+      <li class="nav-item">
+        <a href="logout.html" class="nav-link">
+          <span class="nav-icon material-symbols-rounded">logout</span>
+          <span class="nav-label">Logout</span>
+        </a>
+        <span class="nav-tooltip">Logout</span>
+      </li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- TOP CONTROLS -->
+<div class="top-controls">
+  <div class="theme-icons">
+    <span class="light-icon"><i class="bi bi-sun-fill"></i></span>
+    <span class="dark-icon"><i class="bi bi-moon-stars-fill"></i></span>
+  </div>
+
+  <input type="checkbox" id="darkmode-toggle" />
+  <label for="darkmode-toggle" class="darkmode-label">
+    <svg class="sun"></svg>
+    <svg class="moon"></svg>
+    <span class="toggle-ball"></span>
+  </label>
+</div>
+
+<!-- CONTENT WRAPPER -->
+<div class="content-wrapper">
+
+  <h1 class="page-title">Transactions</h1>
+  
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary-row">
+    <div class="summary-card">
+      <h3>Total Spent</h3>
+      <p class="value" id="totalSpent">RM 0.00</p>
+    </div>
+
+    <div class="summary-card">
+      <h3>Most Spent Category</h3>
+      <p class="value" id="mostCategory">-</p>
+    </div>
+
+    <div class="summary-card">
+      <h3>Total Transactions</h3>
+      <p class="value" id="totalTransactions">0</p>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-card">
+    <div class="filter-group">
+      <label>Category:</label>
+      <select id="categoryFilter" onchange="filterCategory()">
+        <option value="All">All</option>
+        <option value="Food">Food</option>
+        <option value="Transport">Transport</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Bills">Bills</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>From:</label>
+      <input type="date" id="fromDate">
+    </div>
+
+    <div class="filter-group">
+      <label>To:</label>
+      <input type="date" id="toDate">
+    </div>
+
+    <button class="filter-btn" onclick="filterCategory()">Apply</button>
+  </div>
+
+  
+  <!-- TABLE -->
+  <div class="table-card">
+    <h2 class="table-title">Transaction Table</h2>
+
+    <table class="nice-table" id="transactionTable">
+      <thead>
+        <tr>
+          <th>Transaction Name</th>
+          <th>Method</th>
+          <th>Date & Time</th>
+          <th>Amount (RM)</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>KFC</td>
+          <td>eWallet</td>
+          <td>2025-11-20 13:45</td>
+          <td>15.90</td>
+          <td><span class="badge food">Food</span></td>
+        </tr>
+
+        <tr>
+          <td>Grab</td>
+          <td>Cash</td>
+          <td>2025-11-18 08:20</td>
+          <td>3.00</td>
+          <td><span class="badge transport">Transport</span></td>
+        </tr>
+
+        <tr>
+          <td>MR DIY</td>
+          <td>Debit Card</td>
+          <td>2025-11-15 16:10</td>
+          <td>79.90</td>
+          <td><span class="badge shopping">Shopping</span></td>
+        </tr>
+
+        <tr>
+          <td>Netflix</td>
+          <td>Online Banking</td>
+          <td>2025-11-20 14:00</td>
+          <td>29.90</td>
+          <td><span class="badge bills">Bills</span></td>
+        </tr>
+
+        <tr>
+          <td>Sephora</td>
+          <td>Debit Card</td>
+          <td>2025-12-01 20:00</td>
+          <td>150.65</td>
+          <td><span class="badge shopping">Shopping</span></td>
+        </tr>
+
+        <tr>
+          <td>HuluCafe</td>
+          <td>Online Banking</td>
+          <td>2025-12-10 16:00</td>
+          <td>60.50</td>
+          <td><span class="badge food">Food</span></td>
+        </tr>
+
+        <tr>
+          <td>Bolt</td>
+          <td>Online Banking</td>
+          <td>2025-10-10 12:00</td>
+          <td>15.00</td>
+          <td><span class="badge transport">Transport</span></td>
+        </tr>
+
+        <tr>
+          <td>Spotify</td>
+          <td>Online Banking</td>
+          <td>2025-12-05 09:00</td>
+          <td>9.50</td>
+          <td><span class="badge bills">Bills</span></td>
+        </tr>
+
+        <tr>
+          <td>Yellow Brick</td>
+          <td>Debit Card</td>
+          <td>2025-10-10 16:00</td>
+          <td>50.25</td>
+          <td><span class="badge food">Food</span></td>
+        </tr>
+
+        <tr>
+          <td>Aeon</td>
+          <td>Cash</td>
+          <td>2025-12-02 16:00</td>
+          <td>65.30</td>
+          <td><span class="badge shopping">Shopping</span></td>
+        </tr>
+
+        <tr>
+          <td>2ndStreet</td>
+          <td>eWallet</td>
+          <td>2025-10-27 20:30</td>
+          <td>30.00</td>
+          <td><span class="badge shopping">Shopping</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<script src="script.js"></script>
+
+<footer class="app-footer">
+    <div class="footer-left">
+        © 2025 Expenseo — All Rights Reserved
+    </div>
+</footer>
+</div> 
+
+<script src="script.js"></script>
+
+<script>
+  updateSummary();
+</script>
+
+</footer>
+</body>
+</html>
