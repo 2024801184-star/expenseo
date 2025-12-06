@@ -13,8 +13,8 @@
 8. Profile Page
 
 # c. Instructions to test login
-Username: Sakinah25
-Password: Nursakinah25!
+- Username: Sakinah25
+- Password: Nursakinah25!
 
 # d. Frameworks/libraries used. 
 Frameworks: Bootstrap
